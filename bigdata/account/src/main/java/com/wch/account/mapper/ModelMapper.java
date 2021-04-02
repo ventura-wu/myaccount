@@ -1,0 +1,36 @@
+package com.wch.account.mapper;
+
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MappingContext;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+import java.util.List;
+
+/**
+ * @author c
+ * @date 2021/4/3
+ */
+public class ModelMapper {
+    protected final MapperFactory mapperFactory;
+
+    public ModelMapper() {
+
+        mapperFactory = new DefaultMapperFactory.Builder().build();
+    }
+
+    public <T> T map(Object obj, Class<T> targetTye) {
+        return mapperFactory.getMapperFacade().map(obj, targetTye);
+    }
+
+    public <T> T map(Object obj, Class<T> targetTye, MappingContext context) {
+        return mapperFactory.getMapperFacade().map(obj, targetTye, context);
+    }
+
+    public <T> List<T> mapList(List<?> source, Class<T> targetTye) {
+        return mapperFactory.getMapperFacade().mapAsList(source, targetTye);
+    }
+
+    public <T> List<T> mapList(List<?> source, Class<T> targetTye, MappingContext context) {
+        return mapperFactory.getMapperFacade().mapAsList(source, targetTye, context);
+    }
+}
