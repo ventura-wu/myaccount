@@ -20,6 +20,9 @@ public class UserDTO {
     @ApiModelProperty(value = "用户ID")
     private Long userId;
 
+    @ApiModelProperty(value = "删除标记:0未删除;1删除")
+    private Integer deleted;
+
     @ApiModelProperty(value = "名称")
     private String userName;
 

@@ -12,6 +12,8 @@ import java.util.Date;
 public class UserDO {
     private Long userId;
 
+    private Integer deleted;
+
     private String userName;
 
     private String passWord;

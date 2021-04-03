@@ -21,6 +21,9 @@ public abstract class BasePO implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "deleted",nullable = false)
+    private Integer deleted;
+
     @Column(name = "create_user")
     private String createUser;
 
