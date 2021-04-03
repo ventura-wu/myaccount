@@ -1,4 +1,4 @@
-package com.wch.account.enums;
+package com.wch.account.enums.errorenums;
 
 /**
  * @author c

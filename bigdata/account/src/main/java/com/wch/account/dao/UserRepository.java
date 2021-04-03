@@ -16,5 +16,5 @@ public interface UserRepository extends JpaRepository<UserPO,Integer> {
      * @param userId
      * @return
      */
-    Optional<UserPO> findByUserId(Long userId);
+    Optional<UserPO> findById(Long userId);
 }

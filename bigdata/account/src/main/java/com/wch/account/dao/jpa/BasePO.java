@@ -15,10 +15,11 @@ import java.util.Date;
  * @date 2021/4/3
  */
 @MappedSuperclass
+@Data
 public abstract class BasePO implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    private Long userId;
+    private Long id;
 
     @Column(name = "create_user")
     private String createUser;
@@ -33,46 +34,4 @@ public abstract class BasePO implements Serializable {
     @UpdateTimestamp
     @Column(name = "last_modify_time")
     private Date lastModifyTime;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getLastModifyUser() {
-        return lastModifyUser;
-    }
-
-    public void setLastModifyUser(String lastModifyUser) {
-        this.lastModifyUser = lastModifyUser;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
-
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
-    }
-
-
 }

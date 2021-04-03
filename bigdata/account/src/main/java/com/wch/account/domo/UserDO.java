@@ -12,11 +12,11 @@ import java.util.Date;
 public class UserDO {
     private Long userId;
 
-    private String username;
+    private String userName;
 
     private String passWord;
 
-    private Integer sex;
+    private String sex;
 
     private Date birthday;
 

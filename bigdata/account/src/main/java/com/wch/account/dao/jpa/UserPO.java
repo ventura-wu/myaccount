@@ -22,6 +22,7 @@ import java.util.Date;
 @Builder
 @DynamicInsert
 @DynamicUpdate
+@Data
 public class UserPO  extends BasePO{
 
     @Column(name = "name")

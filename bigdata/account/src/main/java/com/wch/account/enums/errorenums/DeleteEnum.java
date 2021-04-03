@@ -1,4 +1,4 @@
-package com.wch.account.enums;
+package com.wch.account.enums.errorenums;
 
 /**
  * 逻辑删除状态

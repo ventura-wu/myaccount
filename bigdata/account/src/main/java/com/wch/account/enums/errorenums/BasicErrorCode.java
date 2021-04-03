@@ -1,4 +1,4 @@
-package com.wch.account.enums;
+package com.wch.account.enums.errorenums;
 
 import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
@@ -9,6 +9,7 @@ import java.util.Arrays;
  */
 public enum BasicErrorCode {
     BASIC_NOT_FOUND_EXCEPTION("1001","资源未找到"),
+    RESOURCE_NOT_EXIST("1002","资源不存在"),
     ;
     private String errorCode;
     private String errorDescription;
@@ -27,7 +28,7 @@ public enum BasicErrorCode {
     }
 
     public static String getDescByCode(String errorCode){
-        return  Arrays.stream(BasicErrorCode.values()).filter(e->StringUtils.equals(e.errorCode,errorCode)).findAny()
+        return  Arrays.stream(BasicErrorCode.values()).filter(e->StringUtils.equals(e.getErrorCode(),errorCode)).findAny()
                 .map(BasicErrorCode::getErrorDescription).orElse(errorCode);
     }
 }

@@ -16,7 +16,7 @@ public class UserDTO {
 
     private String passWord;
 
-    private Integer sex;
+    private String sex;
 
     private Date birthday;
 

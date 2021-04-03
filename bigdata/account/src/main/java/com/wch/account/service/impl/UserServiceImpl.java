@@ -3,6 +3,8 @@ package com.wch.account.service.impl;
 import com.wch.account.domo.UserDO;
 import com.wch.account.dao.UserRepository;
 import com.wch.account.dao.jpa.UserPO;
+import com.wch.account.enums.errorenums.BasicErrorCode;
+import com.wch.account.exception.BusinessErrorException;
 import com.wch.account.mapper.ModelMapper;
 import com.wch.account.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDO findUserPoById(Long userId) {
-        UserPO userPo = userRepository.findByUserId(userId).orElseThrow();
+        UserPO userPo = userRepository.findById(userId).orElseThrow(()->new BusinessErrorException(BasicErrorCode.RESOURCE_NOT_EXIST.getErrorCode()));
         return modelMapper.map(userPo, UserDO.class);
     }
 

@@ -1,6 +1,6 @@
 package com.wch.account.exception;
 
-import com.wch.account.enums.ErrorLevelCodeEnum;
+import com.wch.account.enums.errorenums.ErrorLevelCodeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
