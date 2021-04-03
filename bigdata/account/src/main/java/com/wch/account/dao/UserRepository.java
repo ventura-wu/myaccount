@@ -3,6 +3,7 @@ package com.wch.account.dao;
 import com.wch.account.dao.jpa.UserPO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,9 +13,17 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserPO,Integer> {
 
     /**
-     * find user by userId
+     * find user by userId and deleted
      * @param userId
+     * @param deleted
      * @return
      */
-    Optional<UserPO> findById(Long userId);
+    Optional<UserPO> findByIdAndDeleted(Long userId,Integer deleted);
+
+    /**
+     * find all user by deleted
+     * @param deleted
+     * @return
+     */
+    List<UserPO> findAllByDeleted(Integer deleted);
 }

@@ -38,6 +38,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation(value = "获取所有的用户列表")
     public List<UserDTO> getUserList() {
         return modelMapper.mapList(userService.findAll(), UserDTO.class);
     }
