@@ -31,8 +31,8 @@ public class UserController {
     private ModelMapper modelMapper;
 
     @GetMapping(value = "/{userId}")
-    @ApiOperation(value = "根据ID获取USER的信息")
-    @ApiImplicitParam(name = "userId",value = "用户ID",required = true,dataType = "Long",paramType = "path")
+    @ApiOperation(value = "根据ID获取User信息")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
     public UserDTO getUser(@PathVariable("userId") Long userId) {
         return modelMapper.map(userService.findUserPoById(userId), UserDTO.class);
     }
@@ -42,8 +42,23 @@ public class UserController {
     public List<UserDTO> getUserList() {
         return modelMapper.mapList(userService.findAll(), UserDTO.class);
     }
-    @PostMapping
-    public UserDTO insertUser(){
+
+    @PostMapping(value = "/insert")
+    @ApiOperation(value = "新增User信息")
+    public UserDTO insertUser(@RequestBody UserDTO userDTO) {
+        return null;
+    }
+
+    @PutMapping(value = "/update")
+    @ApiOperation(value = "修改User信息")
+    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+        return null;
+    }
+
+    @PutMapping(value = "/deleted/{userId}")
+    @ApiOperation(value = "根据ID删除User信息")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
+    public UserDTO deletedUser(@PathVariable("userId")Integer userId){
         return null;
     }
 }
