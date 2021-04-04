@@ -1,5 +1,6 @@
 package com.wch.account.service.impl;
 
+import com.wch.account.common.PaginationParam;
 import com.wch.account.domo.UserDO;
 import com.wch.account.dao.UserRepository;
 import com.wch.account.dao.jpa.UserPO;
@@ -26,16 +27,16 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public UserDO findUserPoById(Long userId) {
-        UserPO userPo = userRepository.findByIdAndDeleted(userId,DeletedEnum.NORMAL.getType())
-                .orElseThrow(()->new BusinessErrorException(BasicErrorCode.RESOURCE_NOT_EXIST.getErrorCode()));
-        return modelMapper.map(userPo, UserDO.class);
-    }
-
-    @Override
-    public List<UserDO> findAll() {
+    public List<UserDO> findUserList(String keyword, PaginationParam paginationParam) {
         List<UserPO> userPoList = userRepository.findAllByDeleted(DeletedEnum.NORMAL.getType());
 
         return modelMapper.mapList(userPoList, UserDO.class);
+    }
+
+    @Override
+    public UserDO findUserPoById(Long userId) {
+        UserPO userPo = userRepository.findByIdAndDeleted(userId, DeletedEnum.NORMAL.getType())
+                .orElseThrow(() -> new BusinessErrorException(BasicErrorCode.RESOURCE_NOT_EXIST.getErrorCode()));
+        return modelMapper.map(userPo, UserDO.class);
     }
 }

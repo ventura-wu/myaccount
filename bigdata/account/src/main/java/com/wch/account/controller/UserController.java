@@ -1,13 +1,19 @@
 package com.wch.account.controller;
 
+import com.wch.account.common.PaginationParam;
+import com.wch.account.common.ResponseList;
+import com.wch.account.common.ResponseObject;
+import com.wch.account.common.ResultSet;
 import com.wch.account.dto.UserDTO;
 import com.wch.account.mapper.ModelMapper;
 import com.wch.account.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -33,14 +39,23 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "根据ID获取User信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
-    public UserDTO getUser(@PathVariable("userId") Long userId) {
-        return modelMapper.map(userService.findUserPoById(userId), UserDTO.class);
+    public ResponseEntity<ResponseObject<UserDTO>> getUser(@PathVariable("userId") Long userId) {
+        UserDTO userDTO = modelMapper.map(userService.findUserPoById(userId), UserDTO.class);
+        return ResponseEntity.ok(new ResponseObject<>(userDTO));
     }
 
     @GetMapping
     @ApiOperation(value = "获取所有的用户列表")
-    public List<UserDTO> getUserList() {
-        return modelMapper.mapList(userService.findAll(), UserDTO.class);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keyword", value = "查询关键字", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "page", value = "页码", dataType = "Integer", paramType = "query", defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "页码大小", dataType = "Integer", paramType = "query", defaultValue = "1000"),
+    })
+    public ResponseList<UserDTO> getUserList(
+            @RequestParam(required = false) String keyword,
+            PaginationParam paginationParam) {
+        List<UserDTO> userDTOList = modelMapper.mapList(userService.findUserList(keyword, paginationParam), UserDTO.class);
+        return new ResponseList<>(new ResultSet<>(paginationParam, userDTOList));
     }
 
     @PostMapping(value = "/insert")
@@ -55,10 +70,10 @@ public class UserController {
         return null;
     }
 
-    @PutMapping(value = "/deleted/{userId}")
+    @DeleteMapping(value = "/deleted/{userId}")
     @ApiOperation(value = "根据ID删除User信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
-    public UserDTO deletedUser(@PathVariable("userId")Integer userId){
+    public UserDTO deletedUser(@PathVariable("userId") Integer userId) {
         return null;
     }
 }

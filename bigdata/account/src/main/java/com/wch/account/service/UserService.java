@@ -1,5 +1,6 @@
 package com.wch.account.service;
 
+import com.wch.account.common.PaginationParam;
 import com.wch.account.domo.UserDO;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface UserService {
      * find all user
      * @return
      */
-    List<UserDO> findAll();
+    List<UserDO> findUserList(String keyword, PaginationParam paginationParam);
 }

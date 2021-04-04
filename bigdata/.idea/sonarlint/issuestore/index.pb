@@ -53,3 +53,5 @@ Laccount/src/main/java/com/wch/account/enums/errorenums/MessageLevelEnum.java,9
 Kaccount/src/main/java/com/wch/account/enums/errorenums/MessageTypeEnum.java,6\5\6567ec1fb78ccd93e3821bd69de198cc3a50f11b
 r
 Baccount/src/test/java/com/wch/account/AccountApplicationTests.java,4\3\439eb314c2567c214d586f2bb69dbd8efaa704da
+l
+<account/src/main/java/com/wch/account/enums/DeletedEnum.java,f\0\f0b3ac659090fbb782ea561de3aff34e170c09bc
