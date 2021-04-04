@@ -51,9 +51,8 @@ public class UserController {
             @ApiImplicitParam(name = "page", value = "页码", dataType = "Integer", paramType = "query", defaultValue = "1"),
             @ApiImplicitParam(name = "pageSize", value = "页码大小", dataType = "Integer", paramType = "query", defaultValue = "1000"),
     })
-    public ResponseList<UserDTO> getUserList(
-            @RequestParam(required = false) String keyword,
-            PaginationParam paginationParam) {
+    public ResponseList<UserDTO> getUserList(@RequestParam(required = false) String keyword,
+                                             PaginationParam paginationParam) {
         List<UserDTO> userDTOList = modelMapper.mapList(userService.findUserList(keyword, paginationParam), UserDTO.class);
         return new ResponseList<>(new ResultSet<>(paginationParam, userDTOList));
     }
