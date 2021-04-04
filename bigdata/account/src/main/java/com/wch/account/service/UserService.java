@@ -20,6 +20,8 @@ public interface UserService {
 
     /**
      * find all user
+     * @param keyword
+     * @param paginationParam
      * @return
      */
     List<UserDO> findUserList(String keyword, PaginationParam paginationParam);
