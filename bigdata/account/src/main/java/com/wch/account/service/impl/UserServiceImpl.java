@@ -16,9 +16,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -37,6 +41,13 @@ public class UserServiceImpl implements UserService {
     public List<UserDO> findUserList(String keyword, PaginationParam paginationParam) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(paginationParam.getPage() - 1, paginationParam.getPageSize(), sort);
+
+        // Page<UserPO> userPOPage = userRepository.findAll(new Specification<UserPO>() {
+        //     @Override
+        //     public Predicate toPredicate(Root<UserPO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        //         return null;
+        //     }
+        // },pageable);
         Page<UserPO> userPOPage = userRepository.findAll((root, query, cb) -> {
             List<Predicate> predicateList = Lists.newArrayList();
 
@@ -49,6 +60,7 @@ public class UserServiceImpl implements UserService {
 
             return cb.and(predicateList.toArray(new Predicate[0]));
         }, pageable);
+
         paginationParam.setTotalCount(userPOPage.getTotalElements());
 
         return modelMapper.mapList(userPOPage.toList(), UserDO.class);
