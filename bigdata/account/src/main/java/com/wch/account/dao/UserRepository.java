@@ -2,6 +2,7 @@ package com.wch.account.dao;
 
 import com.wch.account.dao.jpa.UserPO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,18 +11,20 @@ import java.util.Optional;
  * @author c
  * @date 2021/4/1
  */
-public interface UserRepository extends JpaRepository<UserPO,Integer> {
+public interface UserRepository extends JpaSpecificationExecutor<UserPO>, JpaRepository<UserPO, Integer> {
 
     /**
      * find user by userId and deleted
+     *
      * @param userId
      * @param deleted
      * @return
      */
-    Optional<UserPO> findByIdAndDeleted(Long userId,Integer deleted);
+    Optional<UserPO> findByIdAndDeleted(Long userId, Integer deleted);
 
     /**
      * find all user by deleted
+     *
      * @param deleted
      * @return
      */

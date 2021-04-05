@@ -40,14 +40,14 @@ public class UserController {
     @ApiOperation(value = "根据ID获取User信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
     public ResponseEntity<ResponseObject<UserDTO>> getUser(@PathVariable("userId") Long userId) {
-        UserDTO userDTO = modelMapper.map(userService.findUserPoById(userId), UserDTO.class);
+        UserDTO userDTO = modelMapper.map(userService.findUserPOById(userId), UserDTO.class);
         return ResponseEntity.ok(new ResponseObject<>(userDTO));
     }
 
     @GetMapping
     @ApiOperation(value = "获取所有的用户列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "keyword", value = "查询关键字", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "keyword", value = "查询关键字-(用户名称)", dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "page", value = "页码", dataType = "Integer", paramType = "query", defaultValue = "1"),
             @ApiImplicitParam(name = "pageSize", value = "页码大小", dataType = "Integer", paramType = "query", defaultValue = "1000"),
     })

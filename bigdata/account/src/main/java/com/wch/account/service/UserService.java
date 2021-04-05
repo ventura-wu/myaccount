@@ -16,7 +16,7 @@ public interface UserService {
      * @param userId userid
      * @return userpo
      */
-    UserDO findUserPoById(Long userId);
+    UserDO findUserPOById(Long userId);
 
     /**
      * find all user
