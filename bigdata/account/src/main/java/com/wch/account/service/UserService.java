@@ -2,6 +2,7 @@ package com.wch.account.service;
 
 import com.wch.account.common.PaginationParam;
 import com.wch.account.domo.UserDO;
+import com.wch.account.dto.UserDTO;
 
 import java.util.List;
 
@@ -25,4 +26,11 @@ public interface UserService {
      * @return
      */
     List<UserDO> findUserList(String keyword, PaginationParam paginationParam);
+
+    /**
+     * save user
+     * @param userDO
+     * @return
+     */
+    UserDO saveUser(UserDO userDO);
 }

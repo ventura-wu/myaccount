@@ -8,7 +8,7 @@ import com.wch.account.dao.jpa.UserPO;
 import com.wch.account.enums.DeletedEnum;
 import com.wch.account.enums.errorenums.BasicErrorCode;
 import com.wch.account.exception.BusinessErrorException;
-import com.wch.account.mapper.ModelMapper;
+import com.wch.account.mapper.user.UserMapper;
 import com.wch.account.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author c
@@ -35,7 +32,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private UserMapper userMapper;
 
     @Override
     public List<UserDO> findUserList(String keyword, PaginationParam paginationParam) {
@@ -63,13 +60,26 @@ public class UserServiceImpl implements UserService {
 
         paginationParam.setTotalCount(userPOPage.getTotalElements());
 
-        return modelMapper.mapList(userPOPage.toList(), UserDO.class);
+        return userMapper.mapList(userPOPage.toList(), UserDO.class);
     }
 
     @Override
     public UserDO findUserPOById(Long userId) {
-        UserPO userPo = userRepository.findByIdAndDeleted(userId, DeletedEnum.NORMAL.getType())
+        UserPO userPO = userRepository.findByIdAndDeleted(userId, DeletedEnum.NORMAL.getType())
                 .orElseThrow(() -> new BusinessErrorException(BasicErrorCode.RESOURCE_NOT_EXIST.getErrorCode()));
-        return modelMapper.map(userPo, UserDO.class);
+        return userMapper.map(userPO, UserDO.class);
+    }
+
+    @Override
+    public UserDO saveUser(UserDO userDO) {
+        UserPO userPO = userMapper.map(userDO, UserPO.class);
+        Optional<UserPO> optionalUserPO = userRepository.findByUserName(userPO.getUserName());
+        if (optionalUserPO.isEmpty()) {
+            userPO = userRepository.save(userPO);
+        } else {
+            throw new BusinessErrorException(BasicErrorCode.USER_EXISTED.getErrorCode());
+        }
+
+        return userMapper.map(userPO, UserDO.class);
     }
 }

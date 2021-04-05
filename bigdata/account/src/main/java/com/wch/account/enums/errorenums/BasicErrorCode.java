@@ -10,6 +10,7 @@ import java.util.Arrays;
 public enum BasicErrorCode {
     BASIC_NOT_FOUND_EXCEPTION("1001","资源未找到"),
     RESOURCE_NOT_EXIST("1002","资源不存在"),
+    USER_EXISTED("1003","用户已经存在"),
     ;
     private String errorCode;
     private String errorDescription;

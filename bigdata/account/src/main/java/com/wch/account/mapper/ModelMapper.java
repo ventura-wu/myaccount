@@ -37,20 +37,4 @@ public class ModelMapper {
         return mapperFactory.getMapperFacade().mapAsList(source, targetTye, context);
     }
 
-    @PostConstruct
-    void init() {
-        userPOToUserDO();
-    }
-    private void userPOToUserDO(){
-        mapperFactory.classMap(UserPO.class, UserDO.class)
-                .customize(new CustomMapper<UserPO, UserDO>() {
-                    @Override
-                    public void mapAtoB(UserPO userPO, UserDO userDO, MappingContext context) {
-                        userDO.setUserId(userPO.getId());
-                        userDO.setSex(userPO.getSex()==1?"男":"女");
-                    }
-                })
-                .byDefault()
-                .register();
-    }
 }

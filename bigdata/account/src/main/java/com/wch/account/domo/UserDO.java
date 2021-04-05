@@ -1,6 +1,7 @@
 package com.wch.account.domo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -8,11 +9,9 @@ import java.util.Date;
  * @author c
  * @date 2021/4/1
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDO {
-    private Long userId;
-
-    private Integer deleted;
+public class UserDO extends BaseDO{
 
     private String userName;
 
@@ -24,11 +23,4 @@ public class UserDO {
 
     private String phone;
 
-    private String createUser;
-
-    private Long createTime;
-
-    private String lastModifyUser;
-
-    private Long lastModifyTime;
 }

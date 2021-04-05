@@ -23,6 +23,21 @@ public interface UserRepository extends JpaSpecificationExecutor<UserPO>, JpaRep
     Optional<UserPO> findByIdAndDeleted(Long userId, Integer deleted);
 
     /**
+     * find user by userName and deleted
+     *
+     * @param userName
+     * @param deleted
+     * @return
+     */
+    Optional<UserPO> findByUserNameAndDeleted(String userName, Integer deleted);
+
+    /**
+     * find user by userName
+     * @param userName
+     * @return
+     */
+    Optional<UserPO>findByUserName(String userName);
+    /**
      * find all user by deleted
      *
      * @param deleted
