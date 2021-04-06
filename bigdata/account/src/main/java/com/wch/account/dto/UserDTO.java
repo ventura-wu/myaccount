@@ -21,8 +21,8 @@ public class UserDTO extends BaseDTO{
     @ApiModelProperty(value = "密码")
     private String passWord;
 
-    @ApiModelProperty(value = "性别")
-    private String sex;
+    @ApiModelProperty(value = "性别-1男性2女性0其他")
+    private Integer sex;
 
     @ApiModelProperty(value = "出生日期")
     private Date birthday;

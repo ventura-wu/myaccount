@@ -17,7 +17,7 @@ public class UserDO extends BaseDO{
 
     private String passWord;
 
-    private String sex;
+    private Integer sex;
 
     private Date birthday;
 

@@ -6,7 +6,7 @@ import com.wch.account.common.ResponseObject;
 import com.wch.account.common.ResultSet;
 import com.wch.account.domo.UserDO;
 import com.wch.account.dto.UserDTO;
-import com.wch.account.mapper.user.UserMapper;
+import com.wch.account.mapper.ModelMapper;
 import com.wch.account.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,13 +35,13 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserMapper userMapper;
+    private ModelMapper modelMapper;
 
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "根据ID获取User信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path")
     public ResponseEntity<ResponseObject<UserDTO>> getUser(@PathVariable("userId") Long userId) {
-        UserDTO userDTO = userMapper.map(userService.findUserPOById(userId), UserDTO.class);
+        UserDTO userDTO = modelMapper.map(userService.findUserPOById(userId), UserDTO.class);
         return ResponseEntity.ok(new ResponseObject<>(userDTO));
     }
 
@@ -54,14 +54,14 @@ public class UserController {
     })
     public ResponseList<UserDTO> getUserList(@RequestParam(required = false) String keyword,
                                              PaginationParam paginationParam) {
-        List<UserDTO> userDTOList = userMapper.mapList(userService.findUserList(keyword, paginationParam), UserDTO.class);
+        List<UserDTO> userDTOList = modelMapper.mapList(userService.findUserList(keyword, paginationParam), UserDTO.class);
         return new ResponseList<>(new ResultSet<>(paginationParam, userDTOList));
     }
 
     @PostMapping(value = "/insert")
     @ApiOperation(value = "新增User信息")
     public ResponseEntity<ResponseObject<UserDTO>> insertUser(@RequestBody UserDTO userDTO) {
-        userDTO = userMapper.map(userService.saveUser(userMapper.map(userDTO, UserDO.class)), UserDTO.class);
+        userDTO = modelMapper.map(userService.saveUser(modelMapper.map(userDTO, UserDO.class)), UserDTO.class);
         return ResponseEntity.ok(new ResponseObject<>(userDTO));
     }
 

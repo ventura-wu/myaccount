@@ -67,3 +67,9 @@ k
 ;account/src/main/java/com/wch/account/common/ResultSet.java,0\b\0b32759d8f42f67c1c592ff7f3762de687146956
 v
 F.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml,d\1\d1513b0f63449a4cb2f84a1b8918ef26285422a1
+q
+Aaccount/src/main/java/com/wch/account/mapper/user/UserMapper.java,3\7\37c70e4561ddc1e0e7703b7fb82d6a1567ac7990
+f
+6account/src/main/java/com/wch/account/domo/BaseDO.java,8\e\8e47dd823f00fd0baa2d3cc54293c06ed7a2bc9a
+f
+6account/src/main/java/com/wch/account/dto/BaseDTO.java,3\d\3dd598a9e9dd9c6720289024b38acb3123717eae

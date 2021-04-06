@@ -8,7 +8,7 @@ import com.wch.account.dao.jpa.UserPO;
 import com.wch.account.enums.DeletedEnum;
 import com.wch.account.enums.errorenums.BasicErrorCode;
 import com.wch.account.exception.BusinessErrorException;
-import com.wch.account.mapper.user.UserMapper;
+import com.wch.account.mapper.ModelMapper;
 import com.wch.account.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserMapper userMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public List<UserDO> findUserList(String keyword, PaginationParam paginationParam) {
@@ -60,26 +60,26 @@ public class UserServiceImpl implements UserService {
 
         paginationParam.setTotalCount(userPOPage.getTotalElements());
 
-        return userMapper.mapList(userPOPage.toList(), UserDO.class);
+        return modelMapper.mapList(userPOPage.toList(), UserDO.class);
     }
 
     @Override
     public UserDO findUserPOById(Long userId) {
         UserPO userPO = userRepository.findByIdAndDeleted(userId, DeletedEnum.NORMAL.getType())
                 .orElseThrow(() -> new BusinessErrorException(BasicErrorCode.RESOURCE_NOT_EXIST.getErrorCode()));
-        return userMapper.map(userPO, UserDO.class);
+        return modelMapper.map(userPO, UserDO.class);
     }
 
     @Override
     public UserDO saveUser(UserDO userDO) {
-        UserPO userPO = userMapper.map(userDO, UserPO.class);
+        UserPO userPO = modelMapper.map(userDO, UserPO.class);
         Optional<UserPO> optionalUserPO = userRepository.findByUserName(userPO.getUserName());
-        if (optionalUserPO.isEmpty()) {
+        if (!optionalUserPO.isPresent()) {
             userPO = userRepository.save(userPO);
         } else {
             throw new BusinessErrorException(BasicErrorCode.USER_EXISTED.getErrorCode());
         }
 
-        return userMapper.map(userPO, UserDO.class);
+        return modelMapper.map(userPO, UserDO.class);
     }
 }
